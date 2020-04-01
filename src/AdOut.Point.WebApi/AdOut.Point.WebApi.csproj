@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdOut.Point.Core\AdOut.Point.Core.csproj" />
+    <ProjectReference Include="..\AdOut.Point.Model\AdOut.Point.Model.csproj" />
+  </ItemGroup>
+
+
+</Project>
