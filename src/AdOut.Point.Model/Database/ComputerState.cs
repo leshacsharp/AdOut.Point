@@ -1,4 +1,4 @@
-﻿using AdOut.AdPoint.Model.Enum;
+﻿using AdOut.Point.Model.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
