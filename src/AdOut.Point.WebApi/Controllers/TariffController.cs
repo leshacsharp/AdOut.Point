@@ -19,8 +19,8 @@ namespace AdOut.Point.WebApi.Controllers
             ICommitProvider commitProvider)
         {
             _tariffManager = tariffManager;
-            _commitProvider = commitProvider;
-        }
+            _commitProvider = commitProvider;   
+        }   
 
         [HttpPost]
         [Route("create")]
