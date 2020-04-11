@@ -2,7 +2,6 @@
 using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdOut.Point.DataProvider.Repositories
@@ -16,11 +15,7 @@ namespace AdOut.Point.DataProvider.Repositories
 
         public Task<Tariff> GetByIdAsync(int tariffId)
         {
-            var query = from t in Context.Tariffs
-                        where t.Id == tariffId
-                        select t;
-
-            return query.SingleOrDefaultAsync();
+            return Context.Tariffs.SingleOrDefaultAsync(t => t.Id == tariffId);
         }
     }
 }
