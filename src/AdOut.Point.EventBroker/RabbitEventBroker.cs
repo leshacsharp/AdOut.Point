@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace AdOut.Point.EventBus
+namespace AdOut.Point.EventBroker
 {
     public class RabbitEventBroker : IEventBroker, IDisposable
     {
@@ -17,7 +17,7 @@ namespace AdOut.Point.EventBus
 
         public RabbitEventBroker(
             IEventBrokerHelper eventBrokerHelper,
-            IOptions<RabbitConnectionSettings> connectionOptions)
+            IOptions<RabbitConnection> connectionOptions)
         {
             _eventBrokerHelper = eventBrokerHelper;
 
@@ -32,23 +32,24 @@ namespace AdOut.Point.EventBus
             _connection = connectionFactory.CreateConnection();
         }
 
-        public void Publish(IEvent customEvent)
+        public void Publish(IntegrationEvent integrationEvent)
         {    
             using (var channel = _connection.CreateModel())
             {
-                var eventJson = JsonConvert.SerializeObject(customEvent, customEvent.GetType(), new JsonSerializerSettings()
+                var eventJson = JsonConvert.SerializeObject(integrationEvent, integrationEvent.GetType(), new JsonSerializerSettings()
                 {
                     TypeNameHandling = TypeNameHandling.All
                 });
 
                 var messageBody = Encoding.UTF8.GetBytes(eventJson);
-                var exchange = _eventBrokerHelper.GetExchangeName(customEvent.GetType());
+                var exchange = _eventBrokerHelper.GetExchangeName(integrationEvent.GetType());
+                var routingKey = _eventBrokerHelper.GetQueueName(integrationEvent.GetType());
 
-                channel.BasicPublish(exchange, null, null, messageBody);
+                channel.BasicPublish(exchange, routingKey, null, messageBody);
             }
         }
 
-        public void Subscribe<TEvent>(IBasicConsumer eventHandler) where TEvent : IEvent
+        public void Subscribe<TEvent>(IBasicConsumer eventHandler) where TEvent : IntegrationEvent
         {         
             using (var channel = _connection.CreateModel())
             {
@@ -71,7 +72,7 @@ namespace AdOut.Point.EventBus
 
                     channel.ExchangeDeclare(exchange, ExchangeType.Fanout);
                     channel.QueueDeclare(queue, true, false, true, null);
-                    channel.QueueBind(queue, exchange, null, null);
+                    channel.QueueBind(queue, exchange, queue, null);
                 }
             }
         }

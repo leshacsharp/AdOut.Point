@@ -8,6 +8,7 @@ namespace AdOut.Point.Core.DI
     {
         public static void AddCoreModule(this IServiceCollection services)
         {
+            services.AddScoped<IAdPointManager, AdPointManager>();
             services.AddScoped<ITariffManager, TariffManager>();
         }
     }

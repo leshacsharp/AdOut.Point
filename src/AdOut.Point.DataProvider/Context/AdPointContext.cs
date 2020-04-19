@@ -36,6 +36,7 @@ namespace AdOut.Point.DataProvider.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        //todo: probably need to move this logic to another place
         private void SeedData(ModelBuilder modelBuilder)
         {
             var daysOff = new List<DayOff>();

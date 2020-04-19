@@ -2,19 +2,19 @@
 using System;
 using System.Linq;
 
-namespace AdOut.Point.EventBus
+namespace AdOut.Point.EventBroker
 {
     public class EventBrokerHelper : IEventBrokerHelper
     {
         public string GetQueueName(Type eventType)
         {
-            var eventName = eventType.Name;
+            var eventName = eventType.Name.Replace("Event", string.Empty);           
             return FromCamelCaseToSnake(eventName) + "-queue";
         }
 
         public string GetExchangeName(Type eventType)
         {
-            var eventName = eventType.Name;
+            var eventName = eventType.Name.Replace("Event", string.Empty);
             return FromCamelCaseToSnake(eventName) + "-exchange";
         }   
 

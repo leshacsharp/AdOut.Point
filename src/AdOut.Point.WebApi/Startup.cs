@@ -1,10 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AdOut.Point.Core.DI;
 using AdOut.Point.DataProvider.Context;
 using AdOut.Point.DataProvider.DI;
+using AdOut.Point.EventBroker.DI;
+using AdOut.Point.Model;
+using AdOut.Point.Model.Events;
+using AdOut.Point.Model.Interfaces.Infrastructure;
+using AdOut.Point.Model.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,9 @@ namespace AdOut.Point.WebApi
 
             services.AddDataProviderModule();
             services.AddCoreModule();
+            services.AddEventBrokerModule();
+
+            services.Configure<RabbitConnection>(Configuration.GetSection(nameof(RabbitConnection)));
 
             services.AddSwaggerGen(setup =>
             {
@@ -43,7 +48,7 @@ namespace AdOut.Point.WebApi
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEventBroker eventBroker)
         {
             if (env.IsDevelopment())
             {
@@ -66,6 +71,10 @@ namespace AdOut.Point.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            var modelAssembly = typeof(Constants).Assembly;
+            var eventTypes = modelAssembly.GetTypes().Where(t => t.BaseType == typeof(IntegrationEvent));
+            eventBroker.Configure(eventTypes);
         }
     }
 }

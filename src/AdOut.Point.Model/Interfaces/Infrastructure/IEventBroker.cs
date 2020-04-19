@@ -7,8 +7,8 @@ namespace AdOut.Point.Model.Interfaces.Infrastructure
 {
     public interface IEventBroker
     {
-        void Publish(IEvent customEvent);
-        void Subscribe<TEvent>(IBasicConsumer eventHandler) where TEvent : IEvent;
+        void Publish(IntegrationEvent integrationEvent);
+        void Subscribe<TEvent>(IBasicConsumer eventHandler) where TEvent : IntegrationEvent;
         void Configure(IEnumerable<Type> eventTypes);
     }
 }

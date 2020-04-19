@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdOut.Point.Common", "AdOut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdOut.Point.Core", "AdOut.Point.Core\AdOut.Point.Core.csproj", "{D0B52DC3-30CF-41FC-A44E-20E021F759FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdOut.Point.EventBus", "AdOut.Point.EventBus\AdOut.Point.EventBus.csproj", "{43181450-CCA8-41BB-BC6F-AEE7EB27DFD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdOut.Point.EventBroker", "AdOut.Point.EventBroker\AdOut.Point.EventBroker.csproj", "{586C8588-648E-41F5-8EF2-E0B558F1272D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{D0B52DC3-30CF-41FC-A44E-20E021F759FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0B52DC3-30CF-41FC-A44E-20E021F759FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0B52DC3-30CF-41FC-A44E-20E021F759FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43181450-CCA8-41BB-BC6F-AEE7EB27DFD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43181450-CCA8-41BB-BC6F-AEE7EB27DFD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43181450-CCA8-41BB-BC6F-AEE7EB27DFD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43181450-CCA8-41BB-BC6F-AEE7EB27DFD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586C8588-648E-41F5-8EF2-E0B558F1272D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586C8588-648E-41F5-8EF2-E0B558F1272D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586C8588-648E-41F5-8EF2-E0B558F1272D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586C8588-648E-41F5-8EF2-E0B558F1272D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

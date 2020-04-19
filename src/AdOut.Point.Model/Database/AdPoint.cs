@@ -18,7 +18,7 @@ namespace AdOut.Point.Model.Database
         [MaxLength(50)]
         public string Location { get; set; }
 
-        [Required]
+        //[Required]
         public string IpAdress { get; set; }
 
         public TimeSpan StartWorkingTime { get; set; }

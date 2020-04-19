@@ -1,5 +1,6 @@
 ﻿using AdOut.Point.Model.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace AdOut.Point.Model.Interfaces.Context
         DbSet<Image> Images { get; set; }
 
         DbSet<ComputerState> ComputerStates { get; set; }
+
+        ChangeTracker ChangeTracker { get; }
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
 

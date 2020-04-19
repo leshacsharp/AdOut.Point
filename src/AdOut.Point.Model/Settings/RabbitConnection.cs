@@ -1,6 +1,6 @@
 ﻿namespace AdOut.Point.Model.Settings
 {
-    public class RabbitConnectionSettings
+    public class RabbitConnection
     {
         public string UserName { get; set; }
         public string Password { get; set; }

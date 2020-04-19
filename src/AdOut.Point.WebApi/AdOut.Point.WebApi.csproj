@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdOut.Point.Core\AdOut.Point.Core.csproj" />
+    <ProjectReference Include="..\AdOut.Point.EventBroker\AdOut.Point.EventBroker.csproj" />
     <ProjectReference Include="..\AdOut.Point.Model\AdOut.Point.Model.csproj" />
   </ItemGroup>
 

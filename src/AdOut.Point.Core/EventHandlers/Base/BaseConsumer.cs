@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.EventHandlers.Base
 {
-    public abstract class BaseConsumer<TEvent> : AsyncDefaultBasicConsumer where TEvent : IEvent
+    public abstract class BaseConsumer<TEvent> : AsyncDefaultBasicConsumer where TEvent : IntegrationEvent
     {
         public override Task HandleBasicDeliver(string consumerTag, ulong deliveryTag, bool redelivered, string exchange, string routingKey, IBasicProperties properties, byte[] body)
         {
