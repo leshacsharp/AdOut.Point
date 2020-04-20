@@ -60,9 +60,6 @@ namespace AdOut.Point.EventBroker
 
         public void Configure(IEnumerable<Type> eventTypes)
         {
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var eventTypes = assembly.GetTypes().Where(t => t.GetInterface(typeof(IEvent).Name) != null);
-
             using (var channel = _connection.CreateModel())
             {
                 foreach (var eventType in eventTypes)

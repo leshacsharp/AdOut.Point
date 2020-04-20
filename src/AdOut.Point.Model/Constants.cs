@@ -3,10 +3,11 @@
     public static class Constants
     {
         //_T - template
-        public static class TariffValidationMessages
+        public static class ValidationMessages
         {
-            public const string TimeLeavsOfBounds = "Tariff time({0}) leaves of AdPoint time working bounds({1})";
-            public const string TimeInteresection = "Your Tariff with time({0}) intersects another existing tariff";
+            public const string TariffTimeLeavsOfBounds = "Tariff time({0}) leaves of AdPoint time working bounds({1})";
+            public const string TariffTimeInteresection = "Your Tariff with time({0}) intersects another existing tariff";
+            public const string EventHandlerWrongMessage_T = "{0} received wrong type of message from (exchange={2}, routingKey={3})";
         }
 
         public static class HttpStatusCodes

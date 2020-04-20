@@ -1,9 +1,10 @@
 ﻿using AdOut.Point.Model.Events;
-using AdOut.Point.Model.Exceptions;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using System;
 using System.Text;
 using System.Threading.Tasks;
+using static AdOut.Point.Model.Constants;
 
 namespace AdOut.Point.Core.EventHandlers.Base
 {
@@ -23,9 +24,8 @@ namespace AdOut.Point.Core.EventHandlers.Base
             }
             catch (JsonSerializationException ex)
             {
-                //todo: make constant for exceptionMessage
-                var exceptionMessage = $"{this.GetType().Name} received message of the wrong type({typeof(TEvent).Name}) from exchange={exchange} and routingKey={routingKey}";
-                throw new HandlerArgumentException(exceptionMessage, ex);
+                var exceptionMessage = string.Format(ValidationMessages.EventHandlerWrongMessage_T, this.GetType().Name, exchange, routingKey);
+                throw new ArgumentException(exceptionMessage, ex);
             }
         }
 

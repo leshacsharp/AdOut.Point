@@ -39,7 +39,7 @@ namespace AdOut.Point.Core.Managers
             {
                 var adPointWorkingTime = $"{adPoint.StartWorkingTime} - {adPoint.EndWorkingTime}";
                 var tariffTimeBounds = $"{startTime} - {endTime}";
-                var validationMessage = string.Format(TariffValidationMessages.TimeLeavsOfBounds, tariffTimeBounds, adPointWorkingTime);
+                var validationMessage = string.Format(ValidationMessages.TariffTimeLeavsOfBounds, tariffTimeBounds, adPointWorkingTime);
 
                 validationResult.Errors.Add(validationMessage);
             }
@@ -53,7 +53,7 @@ namespace AdOut.Point.Core.Managers
             if (haveTimeIntersection)
             {
                 var tariffTimeBounds = $"{startTime} - {endTime}";
-                var validationMessage = string.Format(TariffValidationMessages.TimeInteresection, tariffTimeBounds);
+                var validationMessage = string.Format(ValidationMessages.TariffTimeInteresection, tariffTimeBounds);
 
                 validationResult.Errors.Add(validationMessage);
             }
