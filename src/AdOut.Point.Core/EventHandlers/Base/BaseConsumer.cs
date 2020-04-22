@@ -1,32 +1,35 @@
 ﻿using AdOut.Point.Model.Events;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using static AdOut.Point.Model.Constants;
 
 namespace AdOut.Point.Core.EventHandlers.Base
 {
     public abstract class BaseConsumer<TEvent> : AsyncDefaultBasicConsumer where TEvent : IntegrationEvent
     {
-        public override Task HandleBasicDeliver(string consumerTag, ulong deliveryTag, bool redelivered, string exchange, string routingKey, IBasicProperties properties, byte[] body)
+        public override Task HandleBasicDeliver(string consumerTag, ulong deliveryTag, bool redelivered, string exchange, string routingKey, IBasicProperties properties, ReadOnlyMemory<byte> body)
         {
-            var jsonBody = Encoding.UTF8.GetString(body);
-            try
-            {
-                var deliveredEvent = JsonConvert.DeserializeObject<TEvent>(jsonBody, new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                });
+            var jsonBody = Encoding.UTF8.GetString(body.Span);
+            var jsonObject = JObject.Parse(jsonBody);
 
-                return HandleAsync(deliveredEvent);
-            }
-            catch (JsonSerializationException ex)
+            if (!jsonObject.ContainsKey("ObjectType"))
             {
-                var exceptionMessage = string.Format(ValidationMessages.EventHandlerWrongMessage_T, this.GetType().Name, exchange, routingKey);
-                throw new ArgumentException(exceptionMessage, ex);
+                var exceptionMessage = $"{this.GetType().Name} received message with wrong schema, missing key 'ObjectType' - (exchange={exchange}, routingKey={routingKey})";
+                throw new ArgumentException(exceptionMessage, nameof(body));
             }
+
+            var eventType = jsonObject.GetValue("ObjectType").ToString();
+            if (typeof(TEvent).Name != eventType)
+            {
+                var exceptionMessage = $"{this.GetType().Name} received wrong event={eventType} - (exchange={exchange}, routingKey={routingKey})";
+                throw new ArgumentException(exceptionMessage, nameof(body));
+            }
+
+            var deliveredEvent = JsonConvert.DeserializeObject<TEvent>(jsonBody);
+            return HandleAsync(deliveredEvent);
         }
 
         protected abstract Task HandleAsync(TEvent deliveredEvent);

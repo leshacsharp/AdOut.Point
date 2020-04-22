@@ -7,9 +7,10 @@ namespace AdOut.Point.EventBroker.DI
     {
         public static void AddEventBrokerModule(this IServiceCollection services)
         {
+            services.AddSingleton<IConnectionManager, RabbitConnectionManager>();
             services.AddScoped<IEventBroker, RabbitEventBroker>();
             services.AddScoped<IEventBrokerHelper, EventBrokerHelper>();
-            //services.AddScoped<IEventBinder, EventBinder>();
+            services.AddScoped<IEventBinder, EventBinder>();
         }
     }
 }
