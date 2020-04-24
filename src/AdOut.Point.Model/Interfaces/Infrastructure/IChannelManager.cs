@@ -2,7 +2,7 @@
 
 namespace AdOut.Point.Model.Interfaces.Infrastructure
 {
-    public interface IConnectionManager
+    public interface IChannelManager
     {
         IModel GetConsumerChannel();
         IModel GetPublisherChannel();
