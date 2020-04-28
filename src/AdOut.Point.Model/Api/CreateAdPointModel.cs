@@ -18,9 +18,5 @@ namespace AdOut.Point.Model.Api
         public int ScreenWidthCm { get; set; }
 
         public int ScreenHeightCm { get; set; }
-
-        //todo: crete adPoint with images
-        //public virtual ICollection<Image> Images { get; set; }
     }
-
 }

@@ -53,7 +53,7 @@ namespace AdOut.Point.Core.Managers
             Create(adPointDayOff);
         }
 
-        public async Task DeleteDayOffFromAdPoint(int adPointId, int dayOffId)
+        public async Task DeleteDayOffFromAdPointAsync(int adPointId, int dayOffId)
         {
             var adPointDayOff = await _adPointDayOffRepository.GetByIdAsync(adPointId, dayOffId);
             if (adPointDayOff == null)

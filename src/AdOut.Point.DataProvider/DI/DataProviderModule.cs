@@ -16,6 +16,8 @@ namespace AdOut.Point.DataProvider.DI
             services.AddScoped<IAdPointRepository, AdPointRepository>();
             services.AddScoped<ITariffRepository, TariffRepository>();
             services.AddScoped<IAdPointDayOffRepository, AdPointDayOffRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IDayOffRepository, DayOffRepository>();
         }
     }
 }

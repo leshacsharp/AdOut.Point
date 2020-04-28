@@ -63,7 +63,8 @@ namespace AdOut.Point.WebApi.Controllers
         [HttpDelete]
         [Route("delete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> CreateTariff(int id)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteTariff(int id)
         {
             await _tariffManager.DeleteAsync(id);
             await _commitProvider.SaveChangesAsync();
