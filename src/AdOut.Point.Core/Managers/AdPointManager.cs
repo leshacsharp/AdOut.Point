@@ -1,5 +1,7 @@
 ﻿using AdOut.Point.Model.Api;
 using AdOut.Point.Model.Database;
+using AdOut.Point.Model.Dto;
+using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
 using System;
@@ -14,6 +16,7 @@ namespace AdOut.Point.Core.Managers
         private readonly IAdPointRepository _adPointRepository;
         private readonly ITariffRepository _tariffRepository;
         private readonly IAdPointDayOffRepository _adPointDayOffRepository;
+
         public AdPointManager(
             IAdPointRepository adPointRepository,
             ITariffRepository tariffRepository,
@@ -45,6 +48,11 @@ namespace AdOut.Point.Core.Managers
             Create(adPoint);
    
             //todo: make proccess of adding images
+        }
+
+        public Task<AdPointDto> GetByIdAsync(int adPointId)
+        { 
+            return _adPointRepository.GetDtoByIdAsync(adPointId);
         }
     }
 }

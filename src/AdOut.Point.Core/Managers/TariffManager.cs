@@ -79,7 +79,7 @@ namespace AdOut.Point.Core.Managers
                 AdPoint = adPoint,
                 StartTime = createModel.StartTime,
                 EndTime = createModel.EndTime,
-                PriceForMin = createModel.PriceForMin
+                PriceForMinute = createModel.PriceForMinute
             };
 
             Create(tariff);
@@ -98,7 +98,7 @@ namespace AdOut.Point.Core.Managers
                 throw new ObjectNotFoundException($"Tariff with id={updateModel.TariffId} was not found");
             }
 
-            tariff.PriceForMin = updateModel.PriceForMin;
+            tariff.PriceForMinute = updateModel.PriceForMinute;
             tariff.StartTime = updateModel.StartTime;
             tariff.EndTime = updateModel.EndTime;
 

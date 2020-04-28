@@ -4,7 +4,7 @@ namespace AdOut.Point.Model.Dto
 {
     public class TariffDto
     {
-        public double PriceForMin { get; set; }
+        public double PriceForMinute { get; set; }
 
         public TimeSpan StartTime { get; set; }
 

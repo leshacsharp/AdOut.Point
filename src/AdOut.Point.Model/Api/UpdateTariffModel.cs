@@ -8,7 +8,7 @@ namespace AdOut.Point.Model.Api
 
         public int AdPointId { get; set; }
 
-        public double PriceForMin { get; set; }
+        public double PriceForMinute { get; set; }
 
         public TimeSpan StartTime { get; set; }
 

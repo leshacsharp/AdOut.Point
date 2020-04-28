@@ -40,6 +40,7 @@ namespace AdOut.Point.WebApi
             services.AddCoreModule();
             services.AddEventBrokerModule();
 
+            services.Configure<AWSS3Config>(Configuration.GetSection(nameof(AWSS3Config)));
             services.Configure<RabbitConfig>(Configuration.GetSection(nameof(RabbitConfig)));
 
             services.AddSwaggerGen(setup =>

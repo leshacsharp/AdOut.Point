@@ -10,7 +10,7 @@ namespace AdOut.Point.Model.Database
         [Key]
         public int Id { get; set; }
 
-        public double PriceForMin { get; set; }
+        public double PriceForMinute { get; set; }
 
         public TimeSpan StartTime { get; set; }
 
