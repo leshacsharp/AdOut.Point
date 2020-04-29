@@ -2,6 +2,8 @@
 using AdOut.Point.Model.Dto;
 using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
+using AdOut.Point.WebApi.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -31,12 +33,10 @@ namespace AdOut.Point.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> CreateAdPoint(CreateAdPointModel createModel)
         {
-            //todo: get userId from claims
-            var userId = "";
-
+            var userId = User.GetUserId();
             _adPointManager.Create(createModel, userId);
-            await _commitProvider.SaveChangesAsync();
 
+            await _commitProvider.SaveChangesAsync();
             return NoContent();
         }
 

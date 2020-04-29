@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AdOut.Point.Core.DI;
 using AdOut.Point.DataProvider.Context;
@@ -7,6 +8,7 @@ using AdOut.Point.Model;
 using AdOut.Point.Model.Events;
 using AdOut.Point.Model.Interfaces.Infrastructure;
 using AdOut.Point.Model.Settings;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,20 @@ namespace AdOut.Point.WebApi
             services.AddDbContext<AdPointContext>(options => 
                      options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                  .AddIdentityServerAuthentication(options =>
+                  {
+                      options.Authority = Configuration.GetValue<string>("Authorization:Authority");
+                      options.ApiName = Configuration.GetValue<string>("Authorization:ApiName");
+                      options.ApiSecret = Configuration.GetValue<string>("Authorization:ApiSecret");
+
+                      options.EnableCaching = true;
+                      options.CacheDuration = TimeSpan.FromSeconds(Configuration.GetValue<int>("Authorization:TokenCacheDurationSec"));
+
+                      options.NameClaimType = "name";
+                      options.RoleClaimType = "role";
+                  });
+
             services.AddDataProviderModule();
             services.AddCoreModule();
             services.AddEventBrokerModule();
@@ -60,6 +76,7 @@ namespace AdOut.Point.WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwagger();

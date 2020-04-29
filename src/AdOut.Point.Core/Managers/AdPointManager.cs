@@ -6,7 +6,6 @@ using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
@@ -46,8 +45,6 @@ namespace AdOut.Point.Core.Managers
             };
 
             Create(adPoint);
-   
-            //todo: make proccess of adding images
         }
 
         public Task<AdPointDto> GetByIdAsync(int adPointId)

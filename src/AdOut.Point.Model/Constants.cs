@@ -16,5 +16,10 @@
             public const int Status403Forbidden = 403;
             public const int Status404NotFound = 404;
         }
+
+        public static class ClaimsTypes
+        {
+            public const string UserId = "sub";
+        }
     }
 }
