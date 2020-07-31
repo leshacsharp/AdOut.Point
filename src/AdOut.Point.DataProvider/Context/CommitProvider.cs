@@ -37,6 +37,7 @@ namespace AdOut.Point.DataProvider.Context
             return countChanges;
         }
 
+        //need to check system
         private List<IntegrationEvent> GenerateCRUDIntegrationEvents()
         {
             var integrationEvents = new List<IntegrationEvent>();
@@ -52,11 +53,14 @@ namespace AdOut.Point.DataProvider.Context
                 var eventFullName = $"{modelAssembly.GetName().Name}.Events.{eventName}";
                 var eventType = modelAssembly.GetType(eventFullName);
 
-                var mapperCfg = new MapperConfiguration(cfg => cfg.CreateMap(entityType, eventType));
-                var mapper = new Mapper(mapperCfg);
+                if (eventType != null)
+                {
+                    var mapperCfg = new MapperConfiguration(cfg => cfg.CreateMap(entityType, eventType));
+                    var mapper = new Mapper(mapperCfg);
 
-                var integrationEvent = (IntegrationEvent)mapper.Map(entry.Entity, entityType, eventType);
-                integrationEvents.Add(integrationEvent);
+                    var integrationEvent = (IntegrationEvent)mapper.Map(entry.Entity, entityType, eventType);
+                    integrationEvents.Add(integrationEvent);
+                }
             }
 
             return integrationEvents;

@@ -20,6 +20,10 @@ namespace AdOut.Point.Model.Interfaces.Context
 
         DbSet<ComputerState> ComputerStates { get; set; }
 
+        DbSet<Plan> Plans { get; set; }
+
+        DbSet<PlanAdPoint> AdPointPlans { get; set; }
+
         ChangeTracker ChangeTracker { get; }
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;

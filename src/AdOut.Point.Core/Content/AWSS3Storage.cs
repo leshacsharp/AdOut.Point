@@ -1,11 +1,8 @@
-﻿using AdOut.Point.Common.Helpers;
-using AdOut.Point.Model.Interfaces.Content;
-using AdOut.Point.Model.Settings;
+﻿using AdOut.Point.Model.Interfaces.Content;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -15,30 +12,17 @@ namespace AdOut.Point.Core.Content
     public class AWSS3Storage : IContentStorage
     {
         private readonly IAmazonS3 _awsClient;
-        private readonly AWSS3Config _awsConfig;
+        private readonly string _bucketName;
 
-        public AWSS3Storage(IOptions<AWSS3Config> awsConfig)
+        public AWSS3Storage(IAmazonS3 awsClient, string bucketName)
         {
-            _awsConfig = awsConfig.Value;
+            _awsClient = awsClient;
+            _bucketName = bucketName;
 
             var awsCredentials = new BasicAWSCredentials(_awsConfig.AccessKey, _awsConfig.SecretKey);
             var regionEndpoint = RegionEndpoint.GetBySystemName(_awsConfig.RegionEndpointName);
 
             _awsClient = new AmazonS3Client(awsCredentials, regionEndpoint);
-        }
-
-        public string GenerateFilePath(string filePath)
-        {
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(filePath);
-            }
-
-            var fileExtension = Path.GetExtension(filePath);
-            var fileName = FileHelper.GetRandomFileName();
-            var fullPath = $"{fileName}{fileExtension}";
-
-            return fullPath;
         }
 
         public Task CreateObjectAsync(Stream content, string filePath)
@@ -55,7 +39,7 @@ namespace AdOut.Point.Core.Content
 
             var putRequest = new PutObjectRequest
             {
-                BucketName = _awsConfig.BucketName,
+                BucketName = _bucketName,
                 Key = filePath,
                 InputStream = content
             };
@@ -73,7 +57,7 @@ namespace AdOut.Point.Core.Content
 
             var deleteRequest = new DeleteObjectRequest
             {
-                BucketName = _awsConfig.BucketName,
+                BucketName = _bucketName,
                 Key = filePath,
             };
 
@@ -90,7 +74,7 @@ namespace AdOut.Point.Core.Content
 
             var getRequest = new GetObjectRequest
             {
-                BucketName = _awsConfig.BucketName,
+                BucketName = _bucketName,
                 Key = filePath,
             };
 

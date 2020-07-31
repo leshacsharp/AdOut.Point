@@ -26,12 +26,16 @@ namespace AdOut.Point.DataProvider.Context
 
         public DbSet<ComputerState> ComputerStates { get; set; }
 
+        public DbSet<Plan> Plans { get; set; }
+
+        public DbSet<PlanAdPoint> AdPointPlans { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
             SeedData(modelBuilder);
 
-            modelBuilder.Entity<AdPointDayOff>()
-                        .HasKey(apd => new { apd.AdPointId, apd.DayOffId });
+            modelBuilder.Entity<AdPointDayOff>().HasKey(apd => new { apd.AdPointId, apd.DayOffId });
+            modelBuilder.Entity<PlanAdPoint>().HasKey(app => new { app.AdPointId, app.PlanId });
 
             base.OnModelCreating(modelBuilder);
         }

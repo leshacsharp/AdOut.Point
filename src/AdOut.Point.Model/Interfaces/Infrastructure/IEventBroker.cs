@@ -9,6 +9,6 @@ namespace AdOut.Point.Model.Interfaces.Infrastructure
     {
         void Publish(IntegrationEvent integrationEvent);
         void Subscribe(Type eventType, IBasicConsumer eventHandler);
-        void Configure(IEnumerable<Type> eventTypes);
+        void Configure();
     }
 }

@@ -8,6 +8,5 @@ namespace AdOut.Point.Model.Interfaces.Content
         Task CreateObjectAsync(Stream content, string filePath);
         Task DeleteObjectAsync(string filePath);
         Task<Stream> GetObjectAsync(string filePath);
-        string GenerateFilePath(string filePath);
     }
 }

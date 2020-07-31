@@ -1,10 +1,12 @@
-﻿using AdOut.Point.Model.Database;
+﻿using AdOut.Point.Common.Helpers;
+using AdOut.Point.Model.Database;
 using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Content;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
@@ -40,7 +42,7 @@ namespace AdOut.Point.Core.Managers
             }
 
             var imageStream = image.OpenReadStream();
-            var imageFilePath = _contentStorage.GenerateFilePath(image.FileName);
+            var imageFilePath = PathHelper.GeneratePath(Path.GetExtension(image.FileName), Model.Enum.DirectoryPath.None);
 
             await _contentStorage.CreateObjectAsync(imageStream, imageFilePath);
 

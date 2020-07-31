@@ -53,7 +53,7 @@ namespace AdOut.Point.WebApi
                   });
 
             services.AddDataProviderModule();
-            services.AddCoreModule();
+            services.AddCoreModule(Configuration);
             services.AddEventBrokerModule();
 
             services.Configure<AWSS3Config>(Configuration.GetSection(nameof(AWSS3Config)));
@@ -90,10 +90,7 @@ namespace AdOut.Point.WebApi
                 endpoints.MapControllers();
             });
 
-            var modelAssembly = typeof(Constants).Assembly;
-            var eventTypes = modelAssembly.GetTypes().Where(t => t.BaseType == typeof(IntegrationEvent));
-            eventBroker.Configure(eventTypes);
-
+            eventBroker.Configure();
             eventBinder.Bind();
         }
     }
