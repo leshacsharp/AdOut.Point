@@ -6,7 +6,7 @@ namespace AdOut.Point.Model.Interfaces.Repositories
 {
     public interface IAdPointRepository : IBaseRepository<AdPoint>
     {
-        Task<AdPointDto> GetDtoByIdAsync(int adPointId);
-        Task<AdPoint> GetByIdAsync(int adPointId);
+        Task<AdPointDto> GetDtoByIdAsync(string adPointId);
+        Task<AdPoint> GetByIdAsync(string adPointId);
     }
 }

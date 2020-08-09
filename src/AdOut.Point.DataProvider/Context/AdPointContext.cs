@@ -50,7 +50,7 @@ namespace AdOut.Point.DataProvider.Context
             {
                 var dayOff = new DayOff()
                 {
-                    Id = i + 1,
+                    Id = (i + 1).ToString(),
                     DayOfWeek = (DayOfWeek)i
                 };
 

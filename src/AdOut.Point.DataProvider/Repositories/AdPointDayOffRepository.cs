@@ -13,7 +13,7 @@ namespace AdOut.Point.DataProvider.Repositories
         {
         }
 
-        public Task<AdPointDayOff> GetByIdAsync(int adPointId, int dayOffId)
+        public Task<AdPointDayOff> GetByIdAsync(string adPointId, string dayOffId)
         {
             return Context.AdPointsDaysOff.SingleOrDefaultAsync(apd => apd.AdPointId == adPointId && apd.DayOffId == dayOffId);
         }

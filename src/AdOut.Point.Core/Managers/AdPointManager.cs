@@ -47,7 +47,7 @@ namespace AdOut.Point.Core.Managers
             Create(adPoint);
         }
 
-        public Task<AdPointDto> GetByIdAsync(int adPointId)
+        public Task<AdPointDto> GetByIdAsync(string adPointId)
         { 
             return _adPointRepository.GetDtoByIdAsync(adPointId);
         }

@@ -13,7 +13,7 @@ namespace AdOut.Point.DataProvider.Repositories
         {
         }
 
-        public Task<Image> GetByIdAsync(int imageId)
+        public Task<Image> GetByIdAsync(string imageId)
         {
             return Context.Images.SingleOrDefaultAsync(i => i.Id == imageId);
         }

@@ -13,7 +13,7 @@ namespace AdOut.Point.DataProvider.Repositories
         {
         }
 
-        public Task<Tariff> GetByIdAsync(int tariffId)
+        public Task<Tariff> GetByIdAsync(string tariffId)
         {
             return Context.Tariffs.SingleOrDefaultAsync(t => t.Id == tariffId);
         }

@@ -5,6 +5,6 @@ namespace AdOut.Point.Model.Interfaces.Repositories
 {
     public interface IImageRepository : IBaseRepository<Image>
     {
-        Task<Image> GetByIdAsync(int imageId);
+        Task<Image> GetByIdAsync(string imageId);
     }
 }

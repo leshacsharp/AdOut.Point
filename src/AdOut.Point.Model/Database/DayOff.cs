@@ -9,7 +9,7 @@ namespace AdOut.Point.Model.Database
     public class DayOff
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public DayOfWeek DayOfWeek { get; set; }
 

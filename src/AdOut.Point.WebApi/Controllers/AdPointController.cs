@@ -44,7 +44,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("{id}")]
         [ProducesResponseType(typeof(AdPointDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAdPoint(int id)
+        public async Task<IActionResult> GetAdPoint(string id)
         {
             var adPoint = await _adPointManager.GetByIdAsync(id);
             if (adPoint == null)
@@ -59,7 +59,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("add-dayoff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddDayOffToAdPoint(int dayOffId, int adPointId)
+        public async Task<IActionResult> AddDayOffToAdPoint(string dayOffId, string adPointId)
         {
             await _adPointDayOffManager.AddDayOffToAdPointAsync(dayOffId, adPointId);
             await _commitProvider.SaveChangesAsync();
@@ -71,7 +71,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("delete-dayoff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteDayOffFromAdPoint(int dayOffId, int adPointId)
+        public async Task<IActionResult> DeleteDayOffFromAdPoint(string dayOffId, string adPointId)
         {
             await _adPointDayOffManager.DeleteDayOffFromAdPointAsync(dayOffId, adPointId);
             await _commitProvider.SaveChangesAsync();

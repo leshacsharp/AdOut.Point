@@ -7,8 +7,13 @@ namespace AdOut.Point.Model.Database
     [Table("Images")]
     public class Image
     {
+        public Image()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string Path { get; set; }
@@ -16,7 +21,7 @@ namespace AdOut.Point.Model.Database
         public DateTime AddedDateTime { get; set; } 
 
         [ForeignKey(nameof(AdPoint))]
-        public int AdPointId { get; set; }
+        public string AdPointId { get; set; }
 
         [Required]
         public virtual AdPoint AdPoint { get; set; }

@@ -16,7 +16,7 @@ namespace AdOut.Point.DataProvider.Repositories
         {
         }
 
-        public async Task<AdPointDto> GetDtoByIdAsync(int adPointId)
+        public async Task<AdPointDto> GetDtoByIdAsync(string adPointId)
         {
             var query = from ap in Context.AdPoints
 
@@ -71,7 +71,7 @@ namespace AdOut.Point.DataProvider.Repositories
             return result;
         }
 
-        public Task<AdPoint> GetByIdAsync(int adPointId)
+        public Task<AdPoint> GetByIdAsync(string adPointId)
         {
             return Context.AdPoints.SingleOrDefaultAsync(ap => ap.Id == adPointId);
         }   
