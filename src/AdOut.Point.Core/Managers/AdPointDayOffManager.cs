@@ -24,7 +24,7 @@ namespace AdOut.Point.Core.Managers
             _dayOffRepository = dayOffRepository;
         }
 
-        public async Task AddDayOffToAdPointAsync(int adPointId, int dayOffId)
+        public async Task AddDayOffToAdPointAsync(string adPointId, string dayOffId)
         {
             var adPoint = await _adPointRepository.GetByIdAsync(adPointId);
             if (adPoint == null)
@@ -53,7 +53,7 @@ namespace AdOut.Point.Core.Managers
             Create(adPointDayOff);
         }
 
-        public async Task DeleteDayOffFromAdPointAsync(int adPointId, int dayOffId)
+        public async Task DeleteDayOffFromAdPointAsync(string adPointId, string dayOffId)
         {
             var adPointDayOff = await _adPointDayOffRepository.GetByIdAsync(adPointId, dayOffId);
             if (adPointDayOff == null)

@@ -18,11 +18,6 @@ namespace AdOut.Point.Core.Content
         {
             _awsClient = awsClient;
             _bucketName = bucketName;
-
-            var awsCredentials = new BasicAWSCredentials(_awsConfig.AccessKey, _awsConfig.SecretKey);
-            var regionEndpoint = RegionEndpoint.GetBySystemName(_awsConfig.RegionEndpointName);
-
-            _awsClient = new AmazonS3Client(awsCredentials, regionEndpoint);
         }
 
         public Task CreateObjectAsync(Stream content, string filePath)

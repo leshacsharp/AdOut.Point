@@ -30,6 +30,8 @@ namespace AdOut.Point.Core.DI
 
             services.AddScoped<IContentStorage>(p => new AWSS3Storage(awsClient, awsConfig.BucketName));
 
+            //todo: take an automatic process of registration consumers from the AdOut.Planning
+            //todo: need to make these services scoped
             services.AddSingleton<IBasicConsumer, PlanCreatedConsumer>();
             services.AddSingleton<IBasicConsumer, PlanAdPointCreatedConsumer>();
         }

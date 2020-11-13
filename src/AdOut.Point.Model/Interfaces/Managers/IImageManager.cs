@@ -6,7 +6,7 @@ namespace AdOut.Point.Model.Interfaces.Managers
 {
     public interface IImageManager : IBaseManager<Image>
     {
-        Task AddImageToAdPointAsync(IFormFile image, int adPointId);
-        Task DeleteImageFromAdPointAsync(int imageId);
+        Task AddImageToAdPointAsync(IFormFile image, string adPointId);
+        Task DeleteImageFromAdPointAsync(string imageId);
     }
 }

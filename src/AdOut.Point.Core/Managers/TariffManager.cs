@@ -25,7 +25,7 @@ namespace AdOut.Point.Core.Managers
             _adPointRepository = adPointRepository;
         }
 
-        public async Task<ValidationResult<string>> ValidateTariff(int adPointId, TimeSpan startTime, TimeSpan endTime)
+        public async Task<ValidationResult<string>> ValidateTariff(string adPointId, TimeSpan startTime, TimeSpan endTime)
         {
             var adPoint = await _adPointRepository.GetByIdAsync(adPointId);
             if (adPoint == null)
@@ -105,7 +105,7 @@ namespace AdOut.Point.Core.Managers
             Update(tariff);
         }
 
-        public async Task DeleteAsync(int tariffId)
+        public async Task DeleteAsync(string tariffId)
         {
             var tariff = await _tariffRepository.GetByIdAsync(tariffId);
             if (tariff == null)

@@ -4,6 +4,8 @@ namespace AdOut.Point.Model.Events
 {
     public class AdPointCreatedEvent : IntegrationEvent
     {
+        public string Id { get; set; }
+
         public string Location { get; set; }
 
         public string IpAdress { get; set; }

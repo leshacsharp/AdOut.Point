@@ -28,7 +28,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("upload")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UploadImage(IFormFile image, int adPointId)
+        public async Task<IActionResult> UploadImage(IFormFile image, string adPointId)
         {
             await _imageManager.AddImageToAdPointAsync(image, adPointId);
             await _commitProvider.SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("delete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteImage(int id)
+        public async Task<IActionResult> DeleteImage(string id)
         {
             await _imageManager.DeleteImageFromAdPointAsync(id);
             await _commitProvider.SaveChangesAsync();

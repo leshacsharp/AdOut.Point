@@ -28,7 +28,7 @@ namespace AdOut.Point.Core.Managers
             _contentStorage = contentStorage;
         }
 
-        public async Task AddImageToAdPointAsync(IFormFile image, int adPointId)
+        public async Task AddImageToAdPointAsync(IFormFile image, string adPointId)
         {
             if (image == null)
             {
@@ -56,7 +56,7 @@ namespace AdOut.Point.Core.Managers
             Create(imageEntity);
         }
 
-        public async Task DeleteImageFromAdPointAsync(int imageId)
+        public async Task DeleteImageFromAdPointAsync(string imageId)
         {
             var image = await _imageRepository.GetByIdAsync(imageId);
             if (image == null)

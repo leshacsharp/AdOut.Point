@@ -8,8 +8,13 @@ namespace AdOut.Point.Model.Database
     [Table("ComputerStates")]
     public class ComputerState
     {
+        public ComputerState()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public DateTime StateDateTime { get; set; }
 
@@ -24,7 +29,7 @@ namespace AdOut.Point.Model.Database
         public double DiskUsage { get; set; }
 
         [ForeignKey(nameof(AdPoint))]
-        public int AdPointId { get; set; }
+        public string AdPointId { get; set; }
 
         [Required]
         public virtual AdPoint AdPoint { get; set; }

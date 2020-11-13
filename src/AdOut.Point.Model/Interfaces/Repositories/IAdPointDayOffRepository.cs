@@ -5,6 +5,6 @@ namespace AdOut.Point.Model.Interfaces.Repositories
 {
     public interface IAdPointDayOffRepository : IBaseRepository<AdPointDayOff>
     {
-        Task<AdPointDayOff> GetByIdAsync(int adPointId, int dayOffId);
+        Task<AdPointDayOff> GetByIdAsync(string adPointId, string dayOffId);
     }
 }

@@ -8,12 +8,12 @@ namespace AdOut.Point.Model.Interfaces.Managers
 {
     public interface ITariffManager : IBaseManager<Tariff>
     {
-        Task<ValidationResult<string>> ValidateTariff(int adPointId, TimeSpan startTime, TimeSpan endTime);
+        Task<ValidationResult<string>> ValidateTariff(string adPointId, TimeSpan startTime, TimeSpan endTime);
 
         Task CreateAsync(CreateTariffModel createModel);
 
         Task UpdateAsync(UpdateTariffModel updateModel);
 
-        Task DeleteAsync(int tariffId);
+        Task DeleteAsync(string tariffId);
     }
 }

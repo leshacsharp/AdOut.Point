@@ -27,8 +27,8 @@ namespace AdOut.Point.Core.EventHandlers
                 var mapperCfg = new MapperConfiguration(cfg => cfg.CreateMap(deliveredEvent.GetType(), typeof(PlanAdPoint)));
                 var mapper = new Mapper(mapperCfg);
 
-                var plan = mapper.Map<PlanAdPoint>(deliveredEvent);
-                planAdPointRepository.Create(plan);
+                var planAdPoint = mapper.Map<PlanAdPoint>(deliveredEvent);
+                planAdPointRepository.Create(planAdPoint);
 
                 return commitProvider.SaveChangesAsync();
             }

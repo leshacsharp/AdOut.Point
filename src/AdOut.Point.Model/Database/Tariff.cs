@@ -7,8 +7,13 @@ namespace AdOut.Point.Model.Database
     [Table("Tariffs")]
     public class Tariff
     {
+        public Tariff()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public double PriceForMinute { get; set; }
 
@@ -17,7 +22,7 @@ namespace AdOut.Point.Model.Database
         public TimeSpan EndTime { get; set; }
 
         [ForeignKey(nameof(AdPoint))]
-        public int AdPointId { get; set; }
+        public string AdPointId { get; set; }
 
         [Required]
         public virtual AdPoint AdPoint { get; set; }

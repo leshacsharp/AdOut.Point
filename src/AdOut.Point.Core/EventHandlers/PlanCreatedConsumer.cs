@@ -19,6 +19,7 @@ namespace AdOut.Point.Core.EventHandlers
 
         protected override Task HandleAsync(PlanCreatedEvent deliveredEvent)
         {
+            //todo: delete singletone services
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var planRepository = scope.ServiceProvider.GetRequiredService<IPlanRepository>();

@@ -22,6 +22,8 @@ namespace AdOut.Point.WebApi.Controllers
             _commitProvider = commitProvider;   
         }   
 
+        //todo: change action names
+
         [HttpPost]
         [Route("create")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -64,7 +66,7 @@ namespace AdOut.Point.WebApi.Controllers
         [Route("delete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteTariff(int id)
+        public async Task<IActionResult> DeleteTariff(string id)
         {
             await _tariffManager.DeleteAsync(id);
             await _commitProvider.SaveChangesAsync();
