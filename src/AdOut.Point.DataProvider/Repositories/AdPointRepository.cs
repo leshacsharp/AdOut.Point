@@ -18,7 +18,7 @@ namespace AdOut.Point.DataProvider.Repositories
 
         public async Task<AdPointDto> GetDtoByIdAsync(string adPointId)
         {
-            var query = from ap in Context.AdPoints
+            var query = from ap in Context.AdPoints.Where(ap => ap.Id == adPointId)
 
                         join t in Context.Tariffs on ap.Id equals t.AdPointId into tJoin
                         from t in tJoin.DefaultIfEmpty()
@@ -31,8 +31,6 @@ namespace AdOut.Point.DataProvider.Repositories
 
                         join d in Context.DaysOff on apd.DayOffId equals d.Id into dJoin
                         from d in dJoin.DefaultIfEmpty()
-
-                        where ap.Id == adPointId
 
                         select new
                         {
@@ -53,7 +51,7 @@ namespace AdOut.Point.DataProvider.Repositories
                         };
 
             var adPointItems = await query.ToListAsync();
-            var adPoint = adPointItems.SingleOrDefault();
+            var adPoint = adPointItems.FirstOrDefault();
 
             var result = adPoint != null ? new AdPointDto()
             {

@@ -28,7 +28,7 @@ namespace AdOut.Point.DataProvider.Context
             var integrationEvents = GenerateCRUDIntegrationEvents();
             var countChanges = await _context.SaveChangesAsync();
 
-            //send integration events AFTER successed execution SaveChanges, to avoid of not consistent data
+            //send the integration events AFTER successed execution SaveChanges to avoid no consistent data
             foreach (var integrationEvent in integrationEvents)
             {
                 _eventBroker.Publish(integrationEvent);
@@ -37,7 +37,7 @@ namespace AdOut.Point.DataProvider.Context
             return countChanges;
         }
 
-        //need to check system
+        //need to check the logic
         private List<IntegrationEvent> GenerateCRUDIntegrationEvents()
         {
             var integrationEvents = new List<IntegrationEvent>();

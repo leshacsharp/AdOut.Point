@@ -4,6 +4,7 @@ using System;
 
 namespace AdOut.Point.Core.Managers
 {
+    //todo: mb need to delete the base manager
     public abstract class BaseManager<TEntity> : IBaseManager<TEntity> where TEntity : class
     {
         private readonly IBaseRepository<TEntity> _repository;

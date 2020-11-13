@@ -4,6 +4,7 @@ using AdOut.Point.Model.Dto;
 using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,16 +16,19 @@ namespace AdOut.Point.Core.Managers
         private readonly IAdPointRepository _adPointRepository;
         private readonly ITariffRepository _tariffRepository;
         private readonly IAdPointDayOffRepository _adPointDayOffRepository;
+        private readonly IPlanAdPointRepository _planAdPointRepository;
 
         public AdPointManager(
             IAdPointRepository adPointRepository,
             ITariffRepository tariffRepository,
-            IAdPointDayOffRepository adPointDayOffRepository) 
+            IAdPointDayOffRepository adPointDayOffRepository,
+            IPlanAdPointRepository planAdPointRepository) 
             : base(adPointRepository)
         {
             _adPointRepository = adPointRepository;
             _tariffRepository = tariffRepository;
             _adPointDayOffRepository = adPointDayOffRepository;
+            _planAdPointRepository = planAdPointRepository;
         }
 
         public void Create(CreateAdPointModel createModel, string userId)
@@ -45,6 +49,23 @@ namespace AdOut.Point.Core.Managers
             };
 
             Create(adPoint);
+        }
+
+        public async Task DeleteAsync(string adPointId)
+        {
+            var adPoint = await _adPointRepository.GetByIdAsync(adPointId);
+            if (adPoint == null)
+            {
+                throw new ObjectNotFoundException($"AdPoint with id={adPointId} was not found");
+            }
+
+            var adPointHasPlans = await _planAdPointRepository.Read(pap => pap.AdPointId == adPointId).AnyAsync();
+            if (adPointHasPlans)
+            {
+                throw new InvalidOperationException($"AdPoint with id={adPointId} has plans. AdPoint can't be deleted");
+            }
+
+            Delete(adPoint);
         }
 
         public Task<AdPointDto> GetByIdAsync(string adPointId)

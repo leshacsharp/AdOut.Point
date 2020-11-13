@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 
 namespace AdOut.Point.DataProvider.Repositories
 {
+    //todo: add GetByIdAsync method
+
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         protected IDatabaseContext Context { get; set; }
