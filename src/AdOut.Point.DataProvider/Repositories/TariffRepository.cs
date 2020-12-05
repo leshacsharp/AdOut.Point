@@ -22,35 +22,21 @@ namespace AdOut.Point.DataProvider.Repositories
         }
 
         //todo: wtf with name?
-        public async Task<List<PlanTariffDto>> GetAdPointTariffsAsync(string planId)
+        public Task<List<PlanTariffDto>> GetAdPointTariffsAsync(string planId)
         {
-            //todo: maybe we need a left join
-            var query = from app in Context.AdPointPlans.Where(app => app.PlanId == planId)
-                        join t in Context.Tariffs on app.AdPointId equals t.AdPointId
-                        select new
-                        {
-                            app.AdPointId,
-                            Tariff = new TariffDto()
-                            {
-                                StartTime = t.StartTime,
-                                EndTime = t.EndTime,
-                                PriceForMinute = t.PriceForMinute
-                            }
-                        };
+            var q = Context.AdPointPlans.Where(app => app.PlanId == planId)
+                                        .Select(app => new PlanTariffDto()
+                                        {
+                                            AdPointId = app.AdPointId,
+                                            Tariffs = app.AdPoint.Tariffs.Select(t => new TariffDto()
+                                            {
+                                                StartTime = t.StartTime,
+                                                EndTime = t.EndTime,
+                                                PriceForMinute = t.PriceForMinute
+                                            })
+                                        });
 
-            var tariffs = await query.ToListAsync();
-
-            var result = from t in tariffs
-                         group t by t.AdPointId 
-                         into grTariffs
-
-                         select new PlanTariffDto()
-                         {
-                             AdPointId = grTariffs.Key,
-                             Tariffs = grTariffs.Select(t => t.Tariff).ToList()
-                         };
-
-            return result.ToList();
+            return q.ToListAsync();
         }
     }
 }

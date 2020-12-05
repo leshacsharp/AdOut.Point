@@ -6,6 +6,6 @@ namespace AdOut.Point.Model.Dto
     {
         public string AdPointId { get; set; }
 
-        public List<TariffDto> Tariffs { get; set; }
+        public IEnumerable<TariffDto> Tariffs { get; set; }
     }
 }

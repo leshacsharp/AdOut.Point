@@ -28,6 +28,7 @@ namespace AdOut.Point.Core.Managers
 
         //todo: need to be done
         //todo: need to put arguments and move this logic to RabbitMQ consumer
+        //todo: Should this method be located in AdOut.Point,
         public async Task CalculatePlanPriceAsync()
         {
             var planId = Guid.NewGuid().ToString();

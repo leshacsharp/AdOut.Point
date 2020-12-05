@@ -12,27 +12,27 @@ namespace AdOut.Point.Core.EventHandlers
     public class PlanCreatedConsumer : BaseConsumer<PlanCreatedEvent>
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        public PlanCreatedConsumer(IServiceScopeFactory serviceScopeFactory)
+        private readonly IMapper _mapper;
+
+        public PlanCreatedConsumer(
+            IServiceScopeFactory serviceScopeFactory,
+            IMapper mapper)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _mapper = mapper;
         }
 
         protected override Task HandleAsync(PlanCreatedEvent deliveredEvent)
         {
             //todo: delete singletone services
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var planRepository = scope.ServiceProvider.GetRequiredService<IPlanRepository>();
-                var commitProvider = scope.ServiceProvider.GetRequiredService<ICommitProvider>();
+            using var scope = _serviceScopeFactory.CreateScope();
+            var planRepository = scope.ServiceProvider.GetRequiredService<IPlanRepository>();
+            var commitProvider = scope.ServiceProvider.GetRequiredService<ICommitProvider>();
 
-                var mapperCfg = new MapperConfiguration(cfg => cfg.CreateMap(deliveredEvent.GetType(), typeof(Plan)));
-                var mapper = new Mapper(mapperCfg);
+            var plan = _mapper.Map<Plan>(deliveredEvent);
+            planRepository.Create(plan);
 
-                var plan = mapper.Map<Plan>(deliveredEvent);
-                planRepository.Create(plan);
-
-                return commitProvider.SaveChangesAsync();
-            }
+            return commitProvider.SaveChangesAsync();
         }
     }
 }

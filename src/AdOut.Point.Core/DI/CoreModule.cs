@@ -1,12 +1,14 @@
 ﻿using AdOut.Point.Core.Content;
 using AdOut.Point.Core.EventHandlers;
 using AdOut.Point.Core.Managers;
+using AdOut.Point.Core.Mapping;
 using AdOut.Point.Model.Interfaces.Content;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Settings;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
@@ -34,6 +36,11 @@ namespace AdOut.Point.Core.DI
             //todo: need to make these services scoped
             services.AddSingleton<IBasicConsumer, PlanCreatedConsumer>();
             services.AddSingleton<IBasicConsumer, PlanAdPointCreatedConsumer>();
+
+            services.AddAutoMapper(c =>
+            {
+                c.AddProfile<EventProfile>();
+            });
         }
     }
 }

@@ -12,26 +12,26 @@ namespace AdOut.Point.Core.EventHandlers
     public class PlanAdPointCreatedConsumer : BaseConsumer<PlanAdPointCreatedEvent>
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        public PlanAdPointCreatedConsumer(IServiceScopeFactory serviceScopeFactory)
+        private readonly IMapper _mapper;
+
+        public PlanAdPointCreatedConsumer(
+            IServiceScopeFactory serviceScopeFactory,
+            IMapper mapper)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _mapper = mapper;
         }
 
         protected override Task HandleAsync(PlanAdPointCreatedEvent deliveredEvent)
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var planAdPointRepository = scope.ServiceProvider.GetRequiredService<IPlanAdPointRepository>();
-                var commitProvider = scope.ServiceProvider.GetRequiredService<ICommitProvider>();
+            using var scope = _serviceScopeFactory.CreateScope();
+            var planAdPointRepository = scope.ServiceProvider.GetRequiredService<IPlanAdPointRepository>();
+            var commitProvider = scope.ServiceProvider.GetRequiredService<ICommitProvider>();
 
-                var mapperCfg = new MapperConfiguration(cfg => cfg.CreateMap(deliveredEvent.GetType(), typeof(PlanAdPoint)));
-                var mapper = new Mapper(mapperCfg);
+            var planAdPoint = _mapper.Map<PlanAdPoint>(deliveredEvent);
+            planAdPointRepository.Create(planAdPoint);
 
-                var planAdPoint = mapper.Map<PlanAdPoint>(deliveredEvent);
-                planAdPointRepository.Create(planAdPoint);
-
-                return commitProvider.SaveChangesAsync();
-            }
+            return commitProvider.SaveChangesAsync();
         }
     }
 }

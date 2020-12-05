@@ -5,7 +5,6 @@ using AdOut.Point.Model.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
-using System;
 
 namespace AdOut.Point.DataProvider.Repositories
 {
@@ -16,57 +15,27 @@ namespace AdOut.Point.DataProvider.Repositories
         {
         }
 
-        public async Task<AdPointDto> GetDtoByIdAsync(string adPointId)
+        public Task<AdPointDto> GetDtoByIdAsync(string adPointId)
         {
-            var query = from ap in Context.AdPoints.Where(ap => ap.Id == adPointId)
+            var query = Context.AdPoints.Where(ap => ap.Id == adPointId)
+                                        .Select(ap => new AdPointDto()
+                                        {
+                                            Location = ap.Location,
+                                            StartWorkingTime = ap.StartWorkingTime,
+                                            EndWorkingTime = ap.EndWorkingTime,
+                                            ScreenWidthCm = ap.ScreenWidthCm,
+                                            ScreenHeightCm = ap.ScreenHeightCm,
+                                            Images = ap.Images.Select(i => i.Path),
+                                            AdPointsDaysOff = ap.AdPointsDaysOff.Select(apd => apd.DayOff.DayOfWeek),
+                                            Tariffs = ap.Tariffs.Select(t => new TariffDto()
+                                            {
+                                                StartTime = t.StartTime,
+                                                EndTime = t.EndTime,
+                                                PriceForMinute = t.PriceForMinute
+                                            })
+                                        });
 
-                        join t in Context.Tariffs on ap.Id equals t.AdPointId into tJoin
-                        from t in tJoin.DefaultIfEmpty()
-
-                        join i in Context.Images on ap.Id equals i.AdPointId into iJoin
-                        from i in iJoin.DefaultIfEmpty()
-
-                        join apd in Context.AdPointsDaysOff on ap.Id equals apd.AdPointId into apdJoin
-                        from apd in apdJoin.DefaultIfEmpty()
-
-                        join d in Context.DaysOff on apd.DayOffId equals d.Id into dJoin
-                        from d in dJoin.DefaultIfEmpty()
-
-                        select new
-                        {
-                            ap.Location,
-                            ap.StartWorkingTime,
-                            ap.EndWorkingTime,
-                            ap.ScreenWidthCm,
-                            ap.ScreenHeightCm,
-
-                            Image = i != null ? i.Path : null,
-                            DayOff = d != null ? d.DayOfWeek : (DayOfWeek?)null,
-                            Tariff = t != null ? new TariffDto()
-                            {
-                                StartTime = t.StartTime,
-                                EndTime = t.EndTime,
-                                PriceForMinute = t.PriceForMinute
-                            } : null
-                        };
-
-            var adPointItems = await query.ToListAsync();
-            var adPoint = adPointItems.FirstOrDefault();
-
-            var result = adPoint != null ? new AdPointDto()
-            {
-                Location = adPoint.Location,
-                StartWorkingTime = adPoint.StartWorkingTime,
-                EndWorkingTime = adPoint.EndWorkingTime,
-                ScreenWidthCm = adPoint.ScreenWidthCm,
-                ScreenHeightCm = adPoint.ScreenHeightCm,
-
-                Images = adPointItems.Where(ap => ap.Image != null).Select(ap => ap.Image),
-                AdPointsDaysOff = adPointItems.Where(ap => ap.DayOff != null).Select(ap => ap.DayOff.Value),
-                Tariffs = adPointItems.Where(ap => ap.Tariff != null).Select(ap => ap.Tariff)
-            } : null;
-
-            return result;
+            return query.SingleOrDefaultAsync();
         }
 
         public Task<AdPoint> GetByIdAsync(string adPointId)
