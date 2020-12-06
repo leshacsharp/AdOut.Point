@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdOut.Point.Common\AdOut.Point.Common.csproj" />
     <ProjectReference Include="..\AdOut.Point.DataProvider\AdOut.Point.DataProvider.csproj" />
     <ProjectReference Include="..\AdOut.Point.Model\AdOut.Point.Model.csproj" />
   </ItemGroup>

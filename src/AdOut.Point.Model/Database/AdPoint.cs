@@ -40,6 +40,8 @@ namespace AdOut.Point.Model.Database
 
         public virtual ICollection<AdPointDayOff> AdPointsDaysOff { get; set; }
 
+        public virtual ICollection<PlanAdPoint> PlanAdPoints { get; set; }
+
         public virtual ICollection<ComputerState> ComputerStates { get; set; }    
     }
 }

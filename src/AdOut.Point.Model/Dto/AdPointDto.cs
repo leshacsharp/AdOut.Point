@@ -15,6 +15,8 @@ namespace AdOut.Point.Model.Dto
 
         public int ScreenHeightCm { get; set; }
 
+        public IEnumerable<PlanDto> Plans { get; set; }
+
         public IEnumerable<string> Images { get; set; }
 
         public IEnumerable<DayOfWeek> AdPointsDaysOff { get; set; }

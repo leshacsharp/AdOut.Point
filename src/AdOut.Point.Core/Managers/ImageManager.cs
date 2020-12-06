@@ -1,4 +1,4 @@
-﻿using AdOut.Point.Common.Helpers;
+﻿using AdOut.Point.Core.Helpers;
 using AdOut.Point.Model.Database;
 using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Content;

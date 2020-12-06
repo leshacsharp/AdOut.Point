@@ -1,11 +1,8 @@
-﻿using AdOut.Point.Common;
-using AdOut.Point.Model;
-using AdOut.Point.Model.Events;
+﻿using AdOut.Point.Model.Events;
 using AdOut.Point.Model.Interfaces.Infrastructure;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -50,7 +47,7 @@ namespace AdOut.Point.EventBroker
         {
             var channel = _channelManager.GetPublisherChannel();
 
-            var modelAssembly = typeof(Constants).Assembly;
+            var modelAssembly = typeof(Model.Constants).Assembly;
             var eventTypes = modelAssembly.GetTypes().Where(t => t.BaseType == typeof(IntegrationEvent));
 
             foreach (var eventType in eventTypes)

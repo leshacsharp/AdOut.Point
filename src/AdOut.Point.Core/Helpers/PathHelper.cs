@@ -1,7 +1,7 @@
 ﻿using AdOut.Point.Model.Enum;
 using System;
 
-namespace AdOut.Point.Common.Helpers
+namespace AdOut.Point.Core.Helpers
 {
     public static class PathHelper
     {

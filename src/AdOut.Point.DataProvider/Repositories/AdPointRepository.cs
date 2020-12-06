@@ -27,6 +27,10 @@ namespace AdOut.Point.DataProvider.Repositories
                                             ScreenHeightCm = ap.ScreenHeightCm,
                                             Images = ap.Images.Select(i => i.Path),
                                             AdPointsDaysOff = ap.AdPointsDaysOff.Select(apd => apd.DayOff.DayOfWeek),
+                                            Plans = ap.PlanAdPoints.Select(pap => new PlanDto()
+                                            { 
+                                                Title = pap.Plan.Title
+                                            }),
                                             Tariffs = ap.Tariffs.Select(t => new TariffDto()
                                             {
                                                 StartTime = t.StartTime,
