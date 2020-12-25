@@ -1,14 +1,13 @@
-﻿using AdOut.Point.Model.Interfaces.Context;
-using AdOut.Point.Model.Interfaces.Repositories;
+﻿using AdOut.Extensions.Repositories;
+using AdOut.Point.Model.Interfaces.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace AdOut.Point.DataProvider.Repositories
 {
-    //todo: add GetByIdAsync method
-
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         protected IDatabaseContext Context { get; set; }
@@ -33,6 +32,11 @@ namespace AdOut.Point.DataProvider.Repositories
         public void Delete(TEntity entity)
         {
             Table.Remove(entity);
+        }
+
+        public ValueTask<TEntity> GetByIdAsync(params object[] id)
+        {
+            return Table.FindAsync(id);
         }
 
         public IQueryable<TEntity> Read(Expression<Func<TEntity, bool>> predicate)

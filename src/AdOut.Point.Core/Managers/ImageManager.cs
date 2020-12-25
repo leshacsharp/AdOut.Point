@@ -1,6 +1,6 @@
-﻿using AdOut.Point.Core.Helpers;
+﻿using AdOut.Extensions.Exceptions;
+using AdOut.Point.Core.Helpers;
 using AdOut.Point.Model.Database;
-using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Content;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;

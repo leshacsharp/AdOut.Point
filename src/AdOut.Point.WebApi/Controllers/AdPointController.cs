@@ -1,6 +1,6 @@
-﻿using AdOut.Point.Model.Api;
+﻿using AdOut.Extensions.Context;
+using AdOut.Point.Model.Api;
 using AdOut.Point.Model.Dto;
-using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.WebApi.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +33,9 @@ namespace AdOut.Point.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> CreateAdPoint(CreateAdPointModel createModel)
         {
-            var userId = User.GetUserId();
+            //todo: move get user id to the UserService!!!!
+            //var userId = User.GetUserId();
+            var userId = System.Guid.NewGuid().ToString();
             _adPointManager.Create(createModel, userId);
 
             await _commitProvider.SaveChangesAsync();

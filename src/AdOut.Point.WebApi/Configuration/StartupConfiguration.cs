@@ -1,9 +1,14 @@
-﻿using AdOut.Point.Core.Content;
+﻿using AdOut.Extensions.Context;
+using AdOut.Point.Core.Content;
 using AdOut.Point.Core.EventHandlers;
 using AdOut.Point.Core.Managers;
 using AdOut.Point.Core.Mapping;
+using AdOut.Point.DataProvider.Context;
+using AdOut.Point.DataProvider.Repositories;
 using AdOut.Point.Model.Interfaces.Content;
+using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
+using AdOut.Point.Model.Interfaces.Repositories;
 using AdOut.Point.Model.Settings;
 using Amazon;
 using Amazon.Runtime;
@@ -13,11 +18,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 
-namespace AdOut.Point.Core.DI
+namespace AdOut.Point.WebApi.Configuration
 {
-    public static class CoreModule
+    public static class StartupConfiguration
     {
-        public static void AddCoreModule(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDataProviderServices(this IServiceCollection services)
+        {
+            services.AddScoped<IDatabaseContext, AdPointContext>();
+            services.AddScoped<ICommitProvider, CommitProvider<AdPointContext>>();
+
+            services.AddScoped<IAdPointRepository, AdPointRepository>();
+            services.AddScoped<ITariffRepository, TariffRepository>();
+            services.AddScoped<IAdPointDayOffRepository, AdPointDayOffRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IDayOffRepository, DayOffRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IPlanAdPointRepository, PlanAdPointRepository>();
+        }
+
+        public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAdPointManager, AdPointManager>();
             services.AddScoped<ITariffManager, TariffManager>();
@@ -33,7 +52,6 @@ namespace AdOut.Point.Core.DI
             services.AddScoped<IContentStorage>(p => new AWSS3Storage(awsClient, awsConfig.BucketName));
 
             //todo: take an automatic process of registration consumers from the AdOut.Planning
-            //todo: need to make these services scoped
             services.AddSingleton<IBasicConsumer, PlanCreatedConsumer>();
             services.AddSingleton<IBasicConsumer, PlanAdPointCreatedConsumer>();
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AdOut.Point.Model.Interfaces.Context;
+using AdOut.Extensions.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

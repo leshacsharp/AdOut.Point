@@ -41,10 +41,5 @@ namespace AdOut.Point.DataProvider.Repositories
 
             return query.SingleOrDefaultAsync();
         }
-
-        public Task<AdPoint> GetByIdAsync(string adPointId)
-        {
-            return Context.AdPoints.SingleOrDefaultAsync(ap => ap.Id == adPointId);
-        }   
     }
 }

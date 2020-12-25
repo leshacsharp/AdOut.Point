@@ -1,10 +1,9 @@
-﻿using AdOut.Point.Model.Database;
-using System.Threading.Tasks;
+﻿using AdOut.Extensions.Repositories;
+using AdOut.Point.Model.Database;
 
 namespace AdOut.Point.Model.Interfaces.Repositories
 {
     public interface IImageRepository : IBaseRepository<Image>
     {
-        Task<Image> GetByIdAsync(string imageId);
     }
 }

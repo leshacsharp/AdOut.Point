@@ -1,5 +1,5 @@
-﻿using AdOut.Point.Model.Interfaces.Managers;
-using AdOut.Point.Model.Interfaces.Repositories;
+﻿using AdOut.Extensions.Repositories;
+using AdOut.Point.Model.Interfaces.Managers;
 using System;
 
 namespace AdOut.Point.Core.Managers

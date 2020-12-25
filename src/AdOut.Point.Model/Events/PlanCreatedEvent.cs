@@ -1,4 +1,6 @@
-﻿namespace AdOut.Point.Model.Events
+﻿using AdOut.Extensions.Communication;
+
+namespace AdOut.Point.Model.Events
 {
     //todo: need to add other information
     public class PlanCreatedEvent : IntegrationEvent

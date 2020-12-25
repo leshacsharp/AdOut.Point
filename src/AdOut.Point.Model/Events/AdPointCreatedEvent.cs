@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdOut.Extensions.Communication;
+using System;
 
 namespace AdOut.Point.Model.Events
 {

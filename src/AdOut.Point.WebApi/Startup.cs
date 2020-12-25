@@ -1,24 +1,17 @@
-using System;
-using System.Linq;
-using AdOut.Point.Core.DI;
+using AdOut.Extensions.Communication;
+using AdOut.Extensions.Communication.Interfaces;
 using AdOut.Point.DataProvider.Context;
-using AdOut.Point.DataProvider.DI;
-using AdOut.Point.EventBroker.DI;
-using AdOut.Point.Model;
-using AdOut.Point.Model.Events;
-using AdOut.Point.Model.Interfaces.Infrastructure;
 using AdOut.Point.Model.Settings;
+using AdOut.Point.WebApi.Configuration;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace AdOut.Point.WebApi
 {
@@ -51,10 +44,10 @@ namespace AdOut.Point.WebApi
                       options.NameClaimType = "name";
                       options.RoleClaimType = "role";
                   });
-
-            services.AddDataProviderModule();
-            services.AddCoreModule(Configuration);
-            services.AddEventBrokerModule();
+;
+            services.AddDataProviderServices();
+            services.AddCoreServices(Configuration);
+            services.AddMessageBrokerServices();
 
             services.Configure<AWSS3Config>(Configuration.GetSection(nameof(AWSS3Config)));
             services.Configure<RabbitConfig>(Configuration.GetSection(nameof(RabbitConfig)));
@@ -65,7 +58,7 @@ namespace AdOut.Point.WebApi
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEventBroker eventBroker, IEventBinder eventBinder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -90,8 +83,14 @@ namespace AdOut.Point.WebApi
                 endpoints.MapControllers();
             });
 
-            eventBroker.Configure();
-            eventBinder.Bind();
+            using var scope = app.ApplicationServices.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<AdPointContext>();
+            var messageBroker = scope.ServiceProvider.GetRequiredService<IMessageBroker>();
+            var consumerBinder= scope.ServiceProvider.GetRequiredService<IConsumerBinder>();
+
+            context.Database.Migrate();
+            messageBroker.Configure();
+            consumerBinder.Bind();
         }
     }
 }

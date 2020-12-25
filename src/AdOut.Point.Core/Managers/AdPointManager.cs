@@ -1,12 +1,11 @@
-﻿using AdOut.Point.Model.Api;
+﻿using AdOut.Extensions.Exceptions;
+using AdOut.Point.Model.Api;
 using AdOut.Point.Model.Database;
 using AdOut.Point.Model.Dto;
-using AdOut.Point.Model.Exceptions;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
