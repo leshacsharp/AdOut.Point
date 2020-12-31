@@ -1,4 +1,5 @@
-﻿using AdOut.Point.Model.Enum;
+﻿using AdOut.Extensions.Repositories;
+using AdOut.Point.Model.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AdOut.Point.Model.Database
 {
     [Table("ComputerStates")]
-    public class ComputerState
+    public class ComputerState : PersistentEntity
     {
         public ComputerState()
         {

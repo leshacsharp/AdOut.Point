@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.DataProvider.Repositories
 {
-    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : PersistentEntity
     {
         protected IDatabaseContext Context { get; set; }
         protected DbSet<TEntity> Table { get; set; }

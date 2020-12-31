@@ -1,13 +1,11 @@
-﻿using AdOut.Point.Model.Interfaces.Content;
-using Amazon;
-using Amazon.Runtime;
+﻿using AdOut.Point.Model.Interfaces.Services;
 using Amazon.S3;
 using Amazon.S3.Model;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AdOut.Point.Core.Content
+namespace AdOut.Point.Core.Services
 {
     public class AWSS3Storage : IContentStorage
     {

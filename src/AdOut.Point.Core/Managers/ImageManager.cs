@@ -1,9 +1,9 @@
 ﻿using AdOut.Extensions.Exceptions;
 using AdOut.Point.Core.Helpers;
 using AdOut.Point.Model.Database;
-using AdOut.Point.Model.Interfaces.Content;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
+using AdOut.Point.Model.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;

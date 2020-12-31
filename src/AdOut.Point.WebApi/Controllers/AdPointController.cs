@@ -2,7 +2,6 @@
 using AdOut.Point.Model.Api;
 using AdOut.Point.Model.Dto;
 using AdOut.Point.Model.Interfaces.Managers;
-using AdOut.Point.WebApi.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+
+    //todo: change action names
+
+    [Route("api/v1")]
     [ApiController]
     public class AdPointController : ControllerBase
     {
@@ -28,15 +30,13 @@ namespace AdOut.Point.WebApi.Controllers
             _commitProvider = commitProvider;
         }
 
+        [Authorize]
         [HttpPost]
         [Route("create")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> CreateAdPoint(CreateAdPointModel createModel)
         {
-            //todo: move get user id to the UserService!!!!
-            //var userId = User.GetUserId();
-            var userId = System.Guid.NewGuid().ToString();
-            _adPointManager.Create(createModel, userId);
+            _adPointManager.Create(createModel);
 
             await _commitProvider.SaveChangesAsync();
             return NoContent();

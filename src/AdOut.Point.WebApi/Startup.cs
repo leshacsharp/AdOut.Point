@@ -44,7 +44,9 @@ namespace AdOut.Point.WebApi
                       options.NameClaimType = "name";
                       options.RoleClaimType = "role";
                   });
-;
+
+            services.AddHttpContextAccessor();
+
             services.AddDataProviderServices();
             services.AddCoreServices(Configuration);
             services.AddMessageBrokerServices();

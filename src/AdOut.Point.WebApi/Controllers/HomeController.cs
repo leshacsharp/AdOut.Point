@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdOut.Extensions.Context;
 using AdOut.Point.Model.Api;
-using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,14 +28,15 @@ namespace AdOut.AdPoint.WebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("Hello AdOut.AdPoint");
+            var time = new TimeSpan(22, 0, 0);
+            return Ok(time);
         }
 
         [HttpPost]
         [Route("create-adpoint")]
         public async Task<IActionResult> CreateAdPoint(CreateAdPointModel createModel)
         {
-            _adPointManager.Create(createModel, "fdtge-gfd435-gdfgdk45-dfgdg743");
+            _adPointManager.Create(createModel);
             await _commitProvider.SaveChangesAsync();
 
             return Ok();

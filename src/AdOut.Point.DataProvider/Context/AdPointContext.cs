@@ -15,19 +15,12 @@ namespace AdOut.Point.DataProvider.Context
         }
 
         public DbSet<AdPoint> AdPoints { get; set; }
-
         public DbSet<Tariff> Tariffs { get; set; }
-
         public DbSet<DayOff> DaysOff { get; set; }
-
         public DbSet<AdPointDayOff> AdPointsDaysOff { get; set; }
-
         public DbSet<Image> Images { get; set; }
-
         public DbSet<ComputerState> ComputerStates { get; set; }
-
         public DbSet<Plan> Plans { get; set; }
-
         public DbSet<PlanAdPoint> AdPointPlans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,7 +44,8 @@ namespace AdOut.Point.DataProvider.Context
                 var dayOff = new DayOff()
                 {
                     Id = (i + 1).ToString(),
-                    DayOfWeek = (DayOfWeek)i
+                    DayOfWeek = (DayOfWeek)i,
+                    Creator = "system" //todo: change
                 };
 
                 daysOff.Add(dayOff);

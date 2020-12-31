@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using AdOut.Extensions.Repositories;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AdOut.Point.Model.Database
 {
-    public class Plan
+    public class Plan : PersistentEntity
     {
         [Key]
         public string Id { get; set; }

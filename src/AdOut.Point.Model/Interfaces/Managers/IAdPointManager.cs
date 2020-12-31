@@ -7,7 +7,7 @@ namespace AdOut.Point.Model.Interfaces.Managers
 {
     public interface IAdPointManager : IBaseManager<AdPoint>
     {
-        void Create(CreateAdPointModel createModel, string userId);
+        void Create(CreateAdPointModel createModel);
         Task DeleteAsync(string adPointId);
         Task<AdPointDto> GetByIdAsync(string adPointId);
     }

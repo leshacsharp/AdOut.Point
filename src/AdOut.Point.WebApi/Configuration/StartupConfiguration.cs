@@ -1,14 +1,14 @@
 ﻿using AdOut.Extensions.Context;
-using AdOut.Point.Core.Content;
 using AdOut.Point.Core.EventHandlers;
 using AdOut.Point.Core.Managers;
 using AdOut.Point.Core.Mapping;
+using AdOut.Point.Core.Services;
 using AdOut.Point.DataProvider.Context;
 using AdOut.Point.DataProvider.Repositories;
-using AdOut.Point.Model.Interfaces.Content;
 using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
+using AdOut.Point.Model.Interfaces.Services;
 using AdOut.Point.Model.Settings;
 using Amazon;
 using Amazon.Runtime;
@@ -24,7 +24,7 @@ namespace AdOut.Point.WebApi.Configuration
     {
         public static void AddDataProviderServices(this IServiceCollection services)
         {
-            services.AddScoped<IDatabaseContext, AdPointContext>();
+            services.AddScoped<IDatabaseContext>(p => p.GetRequiredService<AdPointContext>());
             services.AddScoped<ICommitProvider, CommitProvider<AdPointContext>>();
 
             services.AddScoped<IAdPointRepository, AdPointRepository>();

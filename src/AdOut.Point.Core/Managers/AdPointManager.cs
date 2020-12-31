@@ -30,7 +30,7 @@ namespace AdOut.Point.Core.Managers
             _planAdPointRepository = planAdPointRepository;
         }
 
-        public void Create(CreateAdPointModel createModel, string userId)
+        public void Create(CreateAdPointModel createModel)
         {
             if (createModel == null)
             {
@@ -39,7 +39,6 @@ namespace AdOut.Point.Core.Managers
 
             var adPoint = new AdPoint()
             {
-                UserId = userId,
                 Location = createModel.Location,
                 StartWorkingTime = createModel.StartWorkingTime,
                 EndWorkingTime = createModel.EndWorkingTime,
