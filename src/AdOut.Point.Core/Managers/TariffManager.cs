@@ -11,7 +11,7 @@ using static AdOut.Point.Model.Constants;
 
 namespace AdOut.Point.Core.Managers
 {
-    public class TariffManager : BaseManager<Tariff>, ITariffManager
+    public class TariffManager : ITariffManager
     {
         private readonly ITariffRepository _tariffRepository;
         private readonly IAdPointRepository _adPointRepository;
@@ -19,7 +19,6 @@ namespace AdOut.Point.Core.Managers
         public TariffManager(
             ITariffRepository tariffRepository,
             IAdPointRepository adPointRepository)
-            : base(tariffRepository)
         {
             _tariffRepository = tariffRepository;
             _adPointRepository = adPointRepository;
@@ -82,7 +81,7 @@ namespace AdOut.Point.Core.Managers
                 PriceForMinute = createModel.PriceForMinute
             };
 
-            Create(tariff);
+            _tariffRepository.Create(tariff);
         }
 
         public async Task UpdateAsync(UpdateTariffModel updateModel)
@@ -102,7 +101,7 @@ namespace AdOut.Point.Core.Managers
             tariff.StartTime = updateModel.StartTime;
             tariff.EndTime = updateModel.EndTime;
 
-            Update(tariff);
+            _tariffRepository.Update(tariff);
         }
 
         public async Task DeleteAsync(string tariffId)
@@ -113,7 +112,7 @@ namespace AdOut.Point.Core.Managers
                 throw new ObjectNotFoundException($"Tariff with id={tariffId} was not found");
             }
 
-            Delete(tariff);
+            _tariffRepository.Delete(tariff);
         }
     }
 }

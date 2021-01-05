@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
 {
-    public class AdPointManager : BaseManager<AdPoint>, IAdPointManager
+    public class AdPointManager : IAdPointManager
     {
         private readonly IAdPointRepository _adPointRepository;
         private readonly ITariffRepository _tariffRepository;
@@ -21,8 +21,7 @@ namespace AdOut.Point.Core.Managers
             IAdPointRepository adPointRepository,
             ITariffRepository tariffRepository,
             IAdPointDayOffRepository adPointDayOffRepository,
-            IPlanAdPointRepository planAdPointRepository) 
-            : base(adPointRepository)
+            IPlanAdPointRepository planAdPointRepository)
         {
             _adPointRepository = adPointRepository;
             _tariffRepository = tariffRepository;
@@ -46,7 +45,7 @@ namespace AdOut.Point.Core.Managers
                 ScreenHeightCm = createModel.ScreenHeightCm
             };
 
-            Create(adPoint);
+            _adPointRepository.Create(adPoint);
         }
 
         public async Task DeleteAsync(string adPointId)
@@ -63,7 +62,7 @@ namespace AdOut.Point.Core.Managers
                 throw new InvalidOperationException($"AdPoint with id={adPointId} has plans. AdPoint can't be deleted");
             }
 
-            Delete(adPoint);
+            _adPointRepository.Delete(adPoint);
         }
 
         public Task<AdPointDto> GetByIdAsync(string adPointId)

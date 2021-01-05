@@ -1,9 +1,8 @@
-﻿using AdOut.Point.Model.Database;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AdOut.Point.Model.Interfaces.Managers
 {
-    public interface IAdPointDayOffManager : IBaseManager<AdPointDayOff>
+    public interface IAdPointDayOffManager
     {
         Task AddDayOffToAdPointAsync(string adPointId, string dayOffId);
         Task DeleteDayOffFromAdPointAsync(string adPointId, string dayOffId);

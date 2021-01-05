@@ -1,11 +1,6 @@
 ﻿using AdOut.Point.Model.Database;
-using AdOut.Point.Model.Dto;
 using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdOut.Point.DataProvider.Repositories
 {
@@ -14,24 +9,6 @@ namespace AdOut.Point.DataProvider.Repositories
         public TariffRepository(IDatabaseContext context)
             : base(context)
         {
-        }
-
-        //todo: wtf with name?
-        public Task<List<PlanTariffDto>> GetAdPointTariffsAsync(string planId)
-        {
-            var q = Context.AdPointPlans.Where(app => app.PlanId == planId)
-                                        .Select(app => new PlanTariffDto()
-                                        {
-                                            AdPointId = app.AdPointId,
-                                            Tariffs = app.AdPoint.Tariffs.Select(t => new TariffDto()
-                                            {
-                                                StartTime = t.StartTime,
-                                                EndTime = t.EndTime,
-                                                PriceForMinute = t.PriceForMinute
-                                            })
-                                        });
-
-            return q.ToListAsync();
         }
     }
 }

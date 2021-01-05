@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
 {
-    public class AdPointDayOffManager : BaseManager<AdPointDayOff>, IAdPointDayOffManager
+    public class AdPointDayOffManager : IAdPointDayOffManager
     {
         private readonly IAdPointDayOffRepository _adPointDayOffRepository;
         private readonly IAdPointRepository _adPointRepository;
@@ -17,7 +17,6 @@ namespace AdOut.Point.Core.Managers
             IAdPointDayOffRepository adPointDayOffRepository,
             IAdPointRepository adPointRepository,
             IDayOffRepository dayOffRepository)
-            : base(adPointDayOffRepository)
         {
             _adPointDayOffRepository = adPointDayOffRepository;
             _adPointRepository = adPointRepository;
@@ -50,7 +49,7 @@ namespace AdOut.Point.Core.Managers
                 DayOff = dayOff
             };
 
-            Create(adPointDayOff);
+            _adPointDayOffRepository.Create(adPointDayOff);
         }
 
         public async Task DeleteDayOffFromAdPointAsync(string adPointId, string dayOffId)
@@ -61,7 +60,7 @@ namespace AdOut.Point.Core.Managers
                 throw new ObjectNotFoundException($"DayOff with id=(adPointId={adPointId},dayOffId={dayOffId}) was not found");
             }
 
-            Delete(adPointDayOff);
+            _adPointDayOffRepository.Delete(adPointDayOff);
         }
     }
 }

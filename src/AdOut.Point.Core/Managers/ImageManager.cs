@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.Core.Managers
 {
-    public class ImageManager : BaseManager<Image>, IImageManager
+    public class ImageManager : IImageManager
     {
         private readonly IImageRepository _imageRepository;
         private readonly IAdPointRepository _adPointRepository;
@@ -21,7 +21,6 @@ namespace AdOut.Point.Core.Managers
             IImageRepository imageRepository,
             IAdPointRepository adPointRepository,
             IContentStorage contentStorage)
-            : base(imageRepository)
         {
             _imageRepository = imageRepository;
             _adPointRepository = adPointRepository;
@@ -49,11 +48,10 @@ namespace AdOut.Point.Core.Managers
             var imageEntity = new Image()
             {
                 AdPoint = adPoint,
-                AddedDateTime = DateTime.UtcNow,
                 Path = imageFilePath
             };
 
-            Create(imageEntity);
+            _imageRepository.Create(imageEntity);
         }
 
         public async Task DeleteImageFromAdPointAsync(string imageId)
@@ -66,7 +64,7 @@ namespace AdOut.Point.Core.Managers
 
             await _contentStorage.DeleteObjectAsync(image.Path);
 
-            Delete(image);
+            _imageRepository.Delete(image);
         }
     }
 }

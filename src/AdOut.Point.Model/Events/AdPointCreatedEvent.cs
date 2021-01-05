@@ -18,8 +18,5 @@ namespace AdOut.Point.Model.Events
         public int ScreenWidthCm { get; set; }
 
         public int ScreenHeightCm { get; set; }
-
-        //todo: move the property to the IntegrationEvent
-        public string Creator { get; set; }
     }
 }

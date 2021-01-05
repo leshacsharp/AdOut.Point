@@ -11,6 +11,7 @@ namespace AdOut.Point.Model.Database
         public Image()
         {
             Id = Guid.NewGuid().ToString();
+            AddedDateTime = DateTime.UtcNow;
         }
 
         [Key]
@@ -19,7 +20,6 @@ namespace AdOut.Point.Model.Database
         [Required]
         public string Path { get; set; }
 
-        //todo: initialization in the constructor
         public DateTime AddedDateTime { get; set; } 
 
         [ForeignKey(nameof(AdPoint))]

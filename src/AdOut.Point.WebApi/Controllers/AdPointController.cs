@@ -9,9 +9,6 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.WebApi.Controllers
 {
-
-    //todo: change action names
-
     [Route("api/v1")]
     [ApiController]
     public class AdPointController : ControllerBase
@@ -32,7 +29,7 @@ namespace AdOut.Point.WebApi.Controllers
 
         [Authorize]
         [HttpPost]
-        [Route("create")]
+        [Route("adpoint")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> CreateAdPoint(CreateAdPointModel createModel)
         {
@@ -43,7 +40,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("adpoint/{id}")]
         [ProducesResponseType(typeof(AdPointDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAdPoint(string id)
@@ -58,7 +55,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("add-dayoff")]
+        [Route("dayoff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddDayOffToAdPoint(string dayOffId, string adPointId)
@@ -70,7 +67,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("delete-dayoff")]
+        [Route("dayoff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteDayOffFromAdPoint(string dayOffId, string adPointId)

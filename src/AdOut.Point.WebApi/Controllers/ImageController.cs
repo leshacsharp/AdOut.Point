@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdOut.Extensions.Context;
+﻿using AdOut.Extensions.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AdOut.Point.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class ImageController : ControllerBase
     {
@@ -25,7 +22,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("upload")]
+        [Route("image")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UploadImage(IFormFile image, string adPointId)
@@ -37,7 +34,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("image")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteImage(string id)

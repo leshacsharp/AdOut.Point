@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdOut.Point.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class TariffController : ControllerBase
     {
@@ -22,10 +22,8 @@ namespace AdOut.Point.WebApi.Controllers
             _commitProvider = commitProvider;   
         }   
 
-        //todo: change action names
-
         [HttpPost]
-        [Route("create")]
+        [Route("tariff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateTariff(CreateTariffModel createModel)
@@ -44,7 +42,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
+        [Route("tariff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateTariff(UpdateTariffModel updateModel)
@@ -63,7 +61,7 @@ namespace AdOut.Point.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("tariff")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteTariff(string id)

@@ -1,11 +1,10 @@
 ﻿using AdOut.Point.Model.Api;
-using AdOut.Point.Model.Database;
 using AdOut.Point.Model.Dto;
 using System.Threading.Tasks;
 
 namespace AdOut.Point.Model.Interfaces.Managers
 {
-    public interface IAdPointManager : IBaseManager<AdPoint>
+    public interface IAdPointManager
     {
         void Create(CreateAdPointModel createModel);
         Task DeleteAsync(string adPointId);
