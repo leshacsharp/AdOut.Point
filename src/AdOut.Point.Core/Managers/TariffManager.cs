@@ -44,10 +44,9 @@ namespace AdOut.Point.Core.Managers
             }
 
             var haveTimeIntersection = await _tariffRepository.Read(t =>
-                           (startTime <= t.StartTime && endTime >= t.StartTime ||
-                            startTime <= t.EndTime && endTime >= t.EndTime ||
-                            startTime >= t.StartTime && endTime <= t.EndTime) &&
-                            t.AdPointId == adPoint.Id).AnyAsync();
+                               startTime < t.EndTime &&
+                               t.StartTime < endTime &&
+                               t.AdPointId == adPoint.Id).AnyAsync();
 
             if (haveTimeIntersection)
             {
