@@ -1,2 +1,2 @@
 # AdOut.Point
-Microservice that contains logic of managing ad Points
+The microservice of managing ad Points
