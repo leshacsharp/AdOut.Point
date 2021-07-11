@@ -87,12 +87,7 @@ namespace AdOut.Point.WebApi
 
             using var scope = app.ApplicationServices.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AdPointContext>();
-            var messageBroker = scope.ServiceProvider.GetRequiredService<IMessageBroker>();
-            var consumerBinder= scope.ServiceProvider.GetRequiredService<IConsumerBinder>();
-
             context.Database.Migrate();
-            messageBroker.Configure();
-            consumerBinder.Bind();
         }
     }
 }

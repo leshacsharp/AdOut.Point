@@ -27,7 +27,7 @@ namespace AdOut.Point.WebApi.Controllers
             _commitProvider = commitProvider;
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPost]
         [Route("adpoint")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

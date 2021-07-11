@@ -39,20 +39,18 @@ namespace AdOut.Point.Core.Managers
                 var adPointWorkingTime = $"{adPoint.StartWorkingTime} - {adPoint.EndWorkingTime}";
                 var tariffTimeBounds = $"{startTime} - {endTime}";
                 var validationMessage = string.Format(ValidationMessages.TariffTimeLeavsOfBounds, tariffTimeBounds, adPointWorkingTime);
-
                 validationResult.Errors.Add(validationMessage);
             }
 
             var haveTimeIntersection = await _tariffRepository.Read(t =>
+                               t.AdPointId == adPoint.Id &&
                                startTime < t.EndTime &&
-                               t.StartTime < endTime &&
-                               t.AdPointId == adPoint.Id).AnyAsync();
+                               t.StartTime < endTime ).AnyAsync();
 
             if (haveTimeIntersection)
             {
                 var tariffTimeBounds = $"{startTime} - {endTime}";
                 var validationMessage = string.Format(ValidationMessages.TariffTimeInteresection, tariffTimeBounds);
-
                 validationResult.Errors.Add(validationMessage);
             }
 

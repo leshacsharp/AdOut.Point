@@ -29,6 +29,7 @@ namespace AdOut.Point.Core.Managers
 
         public async Task AddImageToAdPointAsync(IFormFile image, string adPointId)
         {
+            //todo: add some server validation for uploaded images
             if (image == null)
             {
                 throw new ArgumentNullException(nameof(image));
@@ -42,7 +43,6 @@ namespace AdOut.Point.Core.Managers
 
             var imageStream = image.OpenReadStream();
             var imageFilePath = PathHelper.GeneratePath(Path.GetExtension(image.FileName), Model.Enum.DirectoryPath.None);
-
             await _contentStorage.CreateObjectAsync(imageStream, imageFilePath);
 
             var imageEntity = new Image()
@@ -63,7 +63,6 @@ namespace AdOut.Point.Core.Managers
             }
 
             await _contentStorage.DeleteObjectAsync(image.Path);
-
             _imageRepository.Delete(image);
         }
     }

@@ -1,10 +1,12 @@
-﻿using AdOut.Extensions.Context;
-using AdOut.Point.Core.EventHandlers;
+﻿using AdOut.Extensions.Communication;
+using AdOut.Extensions.Communication.Interfaces;
+using AdOut.Extensions.Context;
 using AdOut.Point.Core.Managers;
-using AdOut.Point.Core.Mapping;
+using AdOut.Point.Core.Replication;
 using AdOut.Point.Core.Services;
 using AdOut.Point.DataProvider.Context;
 using AdOut.Point.DataProvider.Repositories;
+using AdOut.Point.Model.Database;
 using AdOut.Point.Model.Interfaces.Context;
 using AdOut.Point.Model.Interfaces.Managers;
 using AdOut.Point.Model.Interfaces.Repositories;
@@ -51,12 +53,14 @@ namespace AdOut.Point.WebApi.Configuration
 
             services.AddScoped<IContentStorage>(p => new AWSS3Storage(awsClient, awsConfig.BucketName));
 
-            services.AddSingleton<IBasicConsumer, PlanCreatedConsumer>();
-            services.AddSingleton<IBasicConsumer, PlanAdPointCreatedConsumer>();
+            services.AddScoped<IReplicationHandlerFactory<Plan>, PlanReplicationFactory>();
+            services.AddScoped<IReplicationHandlerFactory<PlanAdPoint>, PlanAdPointReplicationFactory>();
+            services.AddSingleton<IBasicConsumer, ReplicationConsumer<Plan>>();
+            services.AddSingleton<IBasicConsumer, ReplicationConsumer<PlanAdPoint>>();
 
             services.AddAutoMapper(c =>
             {
-                c.AddProfile<EventProfile>();
+                
             });
         }
     }

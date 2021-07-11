@@ -1,10 +1,12 @@
-﻿using AdOut.Extensions.Repositories;
+﻿using AdOut.Extensions.Communication.Attributes;
+using AdOut.Extensions.Repositories;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdOut.Point.Model.Database
 {
+    [Replication]
     [Table("Tariffs")]
     public class Tariff : PersistentEntity
     {
